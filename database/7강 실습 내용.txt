@@ -1,0 +1,147 @@
+실습 1.
+insert into customer(c_id, c_name, c_mobile, level, zipcode, age)
+values(21, '실험1', '010-0000-2001', 'GREEN', '00000', 10),
+        (22, '실험2', '010-0000-2002', 'GREEN', '00000', 11),
+        (23, '실험3', '010-0000-2003', 'GREEN', '00000', 12),
+        (24, '실험4', '010-0000-2004', 'GREEN', '00000', 13),
+        (25, '실험5', '010-0000-2005', 'GREEN', '00000', 14);
+
+select c_id, c_name
+  from customer
+ where c_id > 20;
+
+
+실습 2. 
+insert into voucher(c_id, voucher_amount, issue_date)
+values(21, 50000, now()),
+        (22, 100000, now()),
+        (23, 50000, now()),
+        (24, 50000, now()),
+        (25, 100000, now());
+
+select c_id, voucher_amount, issue_date
+  from voucher
+ where c_id > 20;
+
+실습 3.
+insert into customer(c_id, c_name, c_mobile, level, zipcode, age)
+select 30, '실습이', c_mobile, level, zipcode, age
+  from customer
+ where c_id = 2;
+
+
+실습 4.
+select sum(voucher_amount)
+  from voucher
+ where voucher_amount = (select min(voucher_amount) from voucher);
+
+
+실습 5.
+select a.c_id, a.c_name
+,(select count(*) from voucher as b where a.c_id =b.c_id) as voucherCount
+  from customer as a
+ order by (select count(*) from voucher as b where a.c_id =b.c_id) desc
+
+실습 6.
+select level
+  from customer
+ group by level;
+
+실습 7.
+select level, count(*) as "고객수"
+  from customer
+ group by level;
+
+실습 8.
+select age, count(*) as "인원수"
+  from customer
+ group by age
+ having count(*) >1;
+
+실습 9.
+select avg(age)
+  from customer;
+
+실습 10.
+select voucher_amount, count(voucher_amount)
+  from voucher
+ group by voucher_amount;
+
+실습 11.
+select max(voucher_amount) as "최대값"
+      ,min(voucher_amount) as "최소값"
+      ,avg(voucher_amount) as "평균값"
+      ,sum(voucher_amount) as "합계"
+  from voucher;
+
+실습 12.
+update customer 
+      set level = 'GREEN'
+ where c_id = 22;
+
+실습 13.
+update customer
+     set level = 'WHITE'
+ where level = 'BLACK';
+
+실습 14.
+update customer
+     set level = 'VIP'
+ where age >= 30;
+
+실습 15.
+update customer
+     set level = 'GREEN'
+ where level is null;
+
+실습 16.
+delete from customer where c_name = '무명이';
+
+실습 17.
+update customer
+    set level = ''
+ where level = 'WHITE';
+
+실습 18.
+update voucher
+    set voucher_amount = 300000
+ where voucher_amount = 200000;
+
+추가 실습 1.
+create table emp(
+  emp_no int,
+  e_nm varchar(20),
+  age int,
+  dept_nm varchar(50),
+  position varchar(20),
+  salary double
+);
+
+create table dept(
+  dept_no int,
+  branch_nm varchar(40),
+  dept_nm varchar(40)
+);
+
+insert into dept(dept_no, branch_nm, dept_nm) values(1, '대전지사','인사과');
+insert into dept(dept_no, branch_nm, dept_nm) values(2, '대전지사','프론티어사업단');
+insert into dept(dept_no, branch_nm, dept_nm) values(3, '대전지사','전산팀');
+
+insert into emp(emp_no,e_nm,age,dept_nm,position,salary) values(1, '성명1',20,1,'과장',3500000);
+insert into emp(emp_no,e_nm,age,dept_nm,position,salary) values(2, '성명2',21,2,'사원',2400000);
+insert into emp(emp_no,e_nm,age,dept_nm,position,salary) values(3, '성명3',22,2,'대리',2800000);
+insert into emp(emp_no,e_nm,age,dept_nm,position,salary) values(4, '성명4',23,1,'부장',4500000);
+insert into emp(emp_no,e_nm,age,dept_nm,position,salary) values(5, '성명5',24,1,'차장',4000000);
+insert into emp(emp_no,e_nm,age,dept_nm,position,salary) values(6, '성명6',25,2,'과장',3500000);
+insert into emp(emp_no,e_nm,age,dept_nm,position,salary) values(7, '성명7',26,3,'사원',2400000);
+insert into emp(emp_no,e_nm,age,dept_nm,position,salary) values(8, '성명8',27,1,'대리',2800000);
+insert into emp(emp_no,e_nm,age,dept_nm,position,salary) values(9, '성명9',28,1,'부장',4500000);
+insert into emp(emp_no,e_nm,age,dept_nm,position,salary) values(10, '성명10',29,1,'차장',4000000);
+
+추가 실습 2.
+select issue_date, sum(voucher_amount) as "합계", avg(voucher_amount) as "평균", count(voucher_amount) as "건수"
+  from voucher
+ group by issue_date;
+
+추가 실습 3.
+update emp set salary = salary * 1.5;
