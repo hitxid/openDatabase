@@ -1,0 +1,188 @@
+실습1.
+select a.c_name, a.c_mobile, b.voucher_amount, b.issue_date
+  from customer as a
+  inner join voucher as b
+  on a.c_id = b.c_id;
+
+실습2.
+select a.c_name, a.c_mobile, b.voucher_amount, b.issue_date, a.age
+  from customer as a
+  inner join voucher as b
+  on a.c_id = b.c_id
+ where a.age between 20 and 29;
+
+실습3.
+select a.c_name, a.c_mobile, b.voucher_amount, b.issue_date
+  from customer as a
+  left join voucher as b
+  on a.c_id = b.c_id;
+
+실습4.
+select a.c_name, a.c_mobile, b.voucher_amount, b.issue_date
+  from customer as a
+  left join voucher as b
+  on a.c_id = b.c_id
+ where a.age between 30 and 39;
+
+실습5.
+select a.c_name, a.c_mobile, b.voucher_amount, b.issue_date
+  from customer as a
+  right join voucher as b
+  on a.c_id = b.c_id;
+
+실습6.
+select a.c_name, a.c_mobile, b.voucher_amount, b.issue_date
+  from customer as a
+  right join voucher as b
+  on a.c_id = b.c_id
+ where a.age >= 40;
+
+실습7.
+create table genre(
+g_no int,
+genre varchar(20),
+reg_date timestamp
+);
+
+create table `show`(
+s_no int,
+title varchar(100),
+g_no int
+);
+
+insert into genre(g_no, genre, reg_date) values(1,'뮤지컬','2021-12-20');
+insert into genre(g_no, genre, reg_date) values(2,'클래식','2021-12-20');
+insert into genre(g_no, genre, reg_date) values(3,'연극','2021-12-20');
+insert into genre(g_no, genre, reg_date) values(4,'국악','2021-12-20');
+insert into genre(g_no, genre, reg_date) values(5,'전시','2021-12-20');
+insert into genre(g_no, genre, reg_date) values(6,'무용','2021-12-20');
+insert into genre(g_no, genre, reg_date) values(7,'콘서트','2022-03-10');
+insert into genre(g_no, genre, reg_date) values(8,'판소리','2022-03-10');
+
+
+insert into `show`(s_no, title, g_no) values(1,'명동거리 1909',5);
+insert into `show`(s_no, title, g_no) values(2,'연극 내가없는',3);
+insert into `show`(s_no, title, g_no) values(3,'산들바람 작품',5);
+insert into `show`(s_no, title, g_no) values(4,'토끼 음악회',1);
+insert into `show`(s_no, title, g_no) values(5,'새소리 전에',1);
+insert into `show`(s_no, title, g_no) values(6,'내마음 국거리',4);
+insert into `show`(s_no, title, g_no) values(7,'피리부는 사나이',4);
+insert into `show`(s_no, title, g_no) values(8,'잉크 토너가 증발 했다',3);
+insert into `show`(s_no, title, g_no) values(9,'과거 회상곡',5);
+insert into `show`(s_no, title, g_no) values(10,'뒤 돌아 볼 때 즈음에',3);
+insert into `show`(s_no, title, g_no) values(11,'마음을 울리는 클래식',2);
+insert into `show`(s_no, title, g_no) values(12,'일상으로 초대',10);
+insert into `show`(s_no, title, g_no) values(13,'떡볶이 한 접시',12);
+
+실습8.
+select a.genre, b.title
+  from genre as a
+  inner join `show` as b
+  on a.g_no = b.g_no;
+
+실습9.
+select a.genre, b.title
+  from genre as a
+  right join `show` as b
+  on a.g_no = b.g_no;
+
+실습10.
+select a.genre, count(b.title)
+  from genre as a
+  right join `show` as b
+  on a.g_no = b.g_no
+ group by a.genre;
+
+추가1
+create table manufacturer(
+manf_no int,
+manf_nm varchar(30),
+est_date timestamp,
+cmer_date timestamp
+);
+
+create table goods(
+goods_no int,
+goods_nm varchar(30),
+price int,
+manf_no int
+);
+
+create table sales(
+sale_no int,
+goods_no int,
+sale_store varchar(30),
+quantity int,
+sale_date timestamp
+);
+
+insert into manufacturer(manf_no, manf_nm, est_date, cmer_date) values(1,'오리옹','1975-03-01','1975-03-01');
+insert into manufacturer(manf_no, manf_nm, est_date, cmer_date) values(2,'그라운','1976-01-01','1976-05-01');
+insert into manufacturer(manf_no, manf_nm, est_date, cmer_date) values(3,'롱심','1980-01-01','1980-02-01');
+insert into manufacturer(manf_no, manf_nm, est_date, cmer_date) values(4,'놋데','1988-01-01','1988-01-01');
+
+insert into goods(goods_no, goods_nm, price, manf_no) values(1,'산토',800,2);
+insert into goods(goods_no, goods_nm, price, manf_no) values(2,'쪼고랫',1000,1);
+insert into goods(goods_no, goods_nm, price, manf_no) values(3,'새우통',300,3);
+insert into goods(goods_no, goods_nm, price, manf_no) values(4,'동물나라',400,10);
+insert into goods(goods_no, goods_nm, price, manf_no) values(5,'가물치',300,1);
+insert into goods(goods_no, goods_nm, price, manf_no) values(6,'거북집',400,11);
+insert into goods(goods_no, goods_nm, price, manf_no) values(7,'채소스릭',400,2);
+insert into goods(goods_no, goods_nm, price, manf_no) values(8,'꼴두기칩',300,1);
+insert into goods(goods_no, goods_nm, price, manf_no) values(9,'토스틱',400,3);
+insert into goods(goods_no, goods_nm, price, manf_no) values(10,'참깨칩',300,2);
+
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(1,3,'사거리 슈퍼',3,'2022-03-04');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(2,1,'오거리 만장',1,'2022-03-04');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(3,2,'DU',4,'2022-03-04');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(4,4,'만남의 광장',5,'2022-03-04');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(5,1,'F Space',1,'2022-03-04');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(6,5,'올리브 올드',2,'2022-03-20');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(7,6,'사거리 슈퍼',3,'2022-03-20');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(8,1,'DU',4,'2022-03-20');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(9,7,'DU',1,'2022-04-01');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(10,8,'F Space',1,'2022-04-01');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(11,2,'올리브 올드',2,'2022-04-01');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(12,4,'HS',3,'2022-04-08');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(13,3,'사거리 슈퍼',5,'2022-04-08');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(14,1,'HS',1,'2022-04-08');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(15,3,'DU',1,'2022-04-15');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(16,4,'F Space',3,'2022-04-15');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(17,5,'만남의 광장',4,'2022-04-15');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(18,6,'사거리 슈퍼',6,'2022-04-23');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(19,1,'오거리 만장',1,'2022-04-23');
+insert into sales(sale_no, goods_no, sale_store, quantity, sale_date) values(20,3,'사거리 슈퍼',2,'2022-04-23');
+
+select a.manf_nm, b.goods_nm
+   from manufacturer as a
+  inner join goods as b
+  on a.manf_no = b.manf_no;
+
+추가실습2.
+select a.manf_nm, b.goods_nm
+   from manufacturer as a
+  inner join goods as b
+  on a.manf_no = b.manf_no
+ order by a.manf_nm;
+
+
+추가실습 3.
+select a.manf_nm, b.goods_nm, b.price, sum(c.quantity)
+   from manufacturer as a
+  inner join goods as b
+  on a.manf_no = b.manf_no
+  inner join sales as c
+  on b.goods_no = c.goods_no
+ group by a.manf_nm, b.goods_nm, b.price;
+
+추가실습4.
+select a.manf_nm, b.goods_nm, sum(b.price)
+   from manufacturer as a
+  inner join goods as b
+  on a.manf_no = b.manf_no
+  inner join sales as c
+  on b.goods_no = c.goods_no
+ group by a.manf_nm, b.goods_nm;
+
+
+
