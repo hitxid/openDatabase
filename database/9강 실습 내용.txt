@@ -1,0 +1,111 @@
+실습1.
+CREATE TABLE VOUCHER_HISTORY(
+idx int,
+type varchar(20),
+idate timestamp
+);
+
+delimiter //
+  CREATE TRIGGER voucher_before_insert_his
+  BEFORE INSERT
+  ON voucher FOR EACH ROW
+  BEGIN
+    INSERT INTO voucher_history(idx, type, idate)
+    VALUES(NEW.c_id, 'BEFORE INSERT', now());
+  END;//
+delimiter ; 
+
+실습2.
+delimiter //
+  CREATE TRIGGER voucher_after_insert_his
+  AFTER INSERT
+  ON voucher FOR EACH ROW
+  BEGIN
+    INSERT INTO voucher_history(idx, type, idate)
+    VALUES(NEW.c_id, 'AFTER INSERT', now());
+  END;//
+delimiter ; 
+
+실습3.
+delimiter //
+  CREATE TRIGGER voucher_before_update_his
+  BEFORE UPDATE
+  ON voucher FOR EACH ROW
+  BEGIN
+    INSERT INTO voucher_history(idx, type, idate)
+    VALUES(NEW.c_id, 'BEFORE UPDATE', now());
+  END;//
+delimiter ; 
+
+delimiter //
+  CREATE TRIGGER voucher_after_update_his
+  AFTER UPDATE
+  ON voucher FOR EACH ROW
+  BEGIN
+    INSERT INTO voucher_history(idx, type, idate)
+    VALUES(NEW.c_id, 'AFTER UPDATE', now());
+  END;//
+delimiter ; 
+
+실습4.
+delimiter //
+  CREATE TRIGGER voucher_before_delete_his
+  BEFORE DELETE
+  ON voucher FOR EACH ROW
+  BEGIN
+    INSERT INTO voucher_history(idx, type, idate)
+    VALUES(OLD.c_id, 'BEFORE DELETE', now());
+  END;//
+
+  CREATE TRIGGER voucher_after_delete_his
+  AFTER DELETE
+  ON voucher FOR EACH ROW
+  BEGIN
+    INSERT INTO voucher_history(idx, type, idate)
+    VALUES(OLD.c_id, 'AFTER DELETE', now());
+  END;//
+delimiter ; 
+
+실습5.
+create table customer_back as select * from customer where 1 = 0;
+delimiter //
+  CREATE TRIGGER tri_customer_backup
+  BEFORE DELETE
+  ON customer FOR EACH ROW
+  BEGIN
+    INSERT INTO customer_back(c_id, c_name, c_mobile, level, zipcode, age)
+    VALUES(OLD.c_id, OLD.c_name, OLD.c_mobile, OLD.level, OLD.zipcode, OLD.age);
+  END;//
+delimiter ; 
+
+실습6.
+drop trigger 트리거 이름;
+
+select trigger_schema, trigger_name, event_object_table, action_timing, event_manipulation
+  from information_schema.triggers
+ where trigger_schema = 'test_user';
+
+실습7.
+create table customer_back as select * from customer where 1 = 0;
+delimiter //
+  CREATE TRIGGER tri_customer_backup2
+  BEFORE DELETE
+  ON customer FOR EACH ROW
+  BEGIN
+    INSERT INTO customer_back(c_id, c_name, c_mobile, level, zipcode, age)
+    VALUES(OLD.c_id, '-', OLD.c_mobile, OLD.level, OLD.zipcode, OLD.age);
+  END;//
+delimiter ; 
+
+실습8.
+create table customer_back as select * from customer where 1 = 0;
+delimiter //
+  CREATE TRIGGER tri_customer_modify
+  BEFORE UPDATE
+  ON customer FOR EACH ROW
+  BEGIN
+    INSERT INTO customer_back(c_id, c_name, c_mobile, level, zipcode, age)
+    VALUES(NEW.c_id, OLD.c_name, NEW.c_mobile, NEW.level, NEW.zipcode, NEW.age);
+  END;//
+delimiter ; 
+
