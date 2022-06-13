@@ -109,3 +109,40 @@ delimiter //
   END;//
 delimiter ; 
 
+
+실습9.
+create table voucher_back as select * from voucher where 1 = 0;
+
+delimiter //
+  CREATE TRIGGER tri_voucher_dis
+  BEFORE insert
+  ON voucherFOR EACH ROW
+  BEGIN
+    declear amount1 int; 
+    set amount1 = NEW.voucher_amount * 0.9;
+
+    INSERT INTO voucher_back(c_id, voucher_amount, issue_date)
+    VALUES(NEW.c_id, amount1, new.issue_date);
+  END;//
+delimiter ; 
+
+실습10.
+drop trigger tri_voucher_dis;
+
+delimiter //
+  CREATE TRIGGER tri_voucher_dis
+  BEFORE insert
+  ON voucherFOR EACH ROW
+  BEGIN
+    declear amount1 int; 
+    set amount1 = NEW.voucher_amount;
+
+    IF amount1 >= 100000 THEN
+       set amount1 = amount1 * 0.9;
+    END IF;
+
+    INSERT INTO voucher_back(c_id, voucher_amount, issue_date)
+    VALUES(NEW.c_id, amount1, new.issue_date);
+  END;//
+
+delimiter ; 
