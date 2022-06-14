@@ -1,0 +1,103 @@
+10강
+실습1
+DELIMITER //
+CREATE FUNCTION `MUL_PARAMS`(
+  PARAM1  INT, PARAM2 INT
+) RETURNS DOUBLE
+BEGIN
+  DECLARE RETURN_VALUE INT;
+  SET RETURN_VALUE = PARAM1 * PARAM2;
+  RETURN RETURN_VALUE;
+END //
+DELIMITER ;
+
+실습2
+DELIMITER //
+CREATE FUNCTION getCustomerName(
+  pCid int
+) RETURNS varchar(20)
+BEGIN
+  DECLARE customerName varchar(20);
+  
+  SELECT C_NAME INTO customerName
+    FROM customer
+  WHERE C_ID = pCid;
+
+  RETURN customerName;
+END //
+DELIMITER ;
+
+실습3.
+DELIMITER //
+CREATE FUNCTION `MEMBER_COUNT`(
+  i_dept_nm varchar(20)
+) RETURNS INT
+BEGIN
+  DECLARE member_count INT;
+  SELECT COUNT(*) INTO member_count 
+     FROM emp
+   WHERE dept_nm = i_dept_nm;
+
+  RETURN member_count;
+END //
+DELIMITER ;
+
+실습4.
+select dept_nm, member_count(dept_nm)
+  from dept ;
+
+
+실습5
+DELIMITER //
+CREATE PROCEDURE change_age(
+  i_age int,
+  i_name varchar(20)
+) 
+BEGIN
+  UPDATE CUSTOMER SET
+    AGE = I_AGE
+   WHERE C_NAME = I_NAME;
+END //
+DELIMITER ;
+
+실습6
+DELIMITER //
+CREATE PROCEDURE change_post(
+  i_c_id int
+) 
+BEGIN
+  UPDATE CUSTOMER SET
+     ZIPCODE = '00000'
+   WHERE C_ID = I_C_ID;
+END //
+DELIMITER ;
+
+실습7
+DELIMITER //
+CREATE PROCEDURE issue_voucher(
+  i_c_id int
+) 
+BEGIN
+  DECLARE V_COUNT INT;
+
+  SET V_COUNT = 0;
+  SELECT COUNT(*) INTO V_COUNT
+    FROM VOUCHER
+  WHERE C_ID = I_C_ID;
+
+  IF V_COUNT = 0 THEN
+    INSERT INTO VOUCHER(C_ID, VOUCHER_AMOUNT, ISSUE_DATE)
+    VALUES(I_C_ID, 50000, NOW());
+  END IF;
+
+END //
+DELIMITER ;
+
+실습8
+DELIMITER //
+CREATE PROCEDURE REPLACE_BACKUP_DEPT() 
+BEGIN
+  DROP TABLE DEPT_BACK;
+  CREATE TABLE DEPT_BACK AS SELECT * FROM DEPT;
+END //
+DELIMITER ;
