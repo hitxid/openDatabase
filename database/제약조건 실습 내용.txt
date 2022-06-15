@@ -1,0 +1,37 @@
+실습1
+alter table emp modify column salary double default 2000000;
+
+insert into emp(emp_no, e_nm, age, dept_nm, position)
+values(11, '기본월급', 18, 3, '사원');
+
+실습2
+alter table customer modify column level varchar(10) default 'GREEN';
+
+insert into customer(c_id, c_name, c_mobile, zipcode, age)
+values(37, '새롬이', '010-1234-1230', '01230', 21);
+
+실습3
+alter table emp modify column e_nm varchar(20) not null;
+alter table emp modify column dept_nm varchar(50) not null;
+
+실습4
+alter table dept modify column dept_nm varchar(50) not null;
+
+실습5
+alter table dept modify column dept_nm varchar(50) unique;
+
+실습6
+alter table dept add constraint primary key(dept_no);
+
+실습7
+alter table goods add constraint primary key(goods_no);
+
+실습8
+alter table manufacturer add constraint primary key(manf_no);
+alter table manufacturer modify column manf_nm varchar(30) not null;
+
+실습9
+alter table sales add constraint primary key(sale_no, goods_no);
+
+실습10
+alter table sales add constraint foreign key(goods_no) references goods(goods_no);
