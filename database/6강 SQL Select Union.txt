@@ -1,0 +1,106 @@
+-- 실습1
+select c_name, level
+  from customer
+ where level = 'VIP';
+
+-- 실습2
+select c_name, c_mobile
+  from customer
+ where c_mobile like '%11%';
+
+-- 실습3
+select c_id, c_name, zipcode, age
+  from customer
+ where zipcode like '8%';
+
+-- 실습4
+select c_name, level, age
+  from customer
+ where age < 30;
+
+-- 실습5
+select a.c_name, a.c_mobile, b.issue_date 
+  from work_user.customer as a
+ inner join work_user.voucher as b
+ on a.c_id = b.c_id;
+ 
+-- 실습 6
+select a.c_name, a.c_mobile
+  from work_user.customer as a
+ where a.c_id not in(select b.c_id
+                       from work_user.voucher as b);
+                        
+ select a.c_name, a.c_mobile, a.c_id
+  from work_user.customer as a
+ where 0 <(select count(*) 
+		     from work_user.voucher as b 
+			where a.c_id = b.c_id);
+
+-- 실습7
+select *
+  from customer
+ order by c_name desc;
+
+-- 실습8
+select *
+  from customer
+ order by age asc;
+
+--실습9
+ select a.c_name, a.c_mobile, a.c_id
+  from work_user.customer as a
+ where 0 <(select count(*) 
+		     from work_user.voucher as b 
+			where a.c_id = b.c_id)
+ order by a.c_name desc;
+
+
+-- 실습10
+SELECT a.c_id
+  FROM work_user.voucher as a
+union
+select a.c_id
+  from work_user.voucher as a;
+
+-- 실습11
+SELECT a.c_id, '1번'
+  FROM work_user.voucher as a
+union
+select a.c_id, '2번'
+  from work_user.voucher as a;
+
+-- 실습12
+SELECT a.c_id, '1번'
+  FROM work_user.voucher as a
+ where a.voucher_amount > 100000
+union
+select a.c_id, '2번'
+  from work_user.voucher as a
+ where a.voucher_amount > 100000;
+
+-- 실습 13
+SELECT a.c_id, a.issue_date
+  FROM work_user.voucher as a
+union all
+select a.c_id, a.issue_date
+  from work_user.voucher as a;
+
+-- 실습 14
+SELECT a.c_id, a.issue_date
+  FROM work_user.voucher as a
+union all
+select a.c_id, a.issue_date
+  from work_user.voucher as a
+ union all
+select a.c_id, a.issue_date
+  from work_user.voucher as a;
+
+/*추가문제*/
+SELECT a.c_id, a.c_name, a.age
+  from work_user.customer as a
+ where a.age < 30
+ union all
+select a.c_id, a.c_name, a.age
+  from work_userygh.customer as a
+ where a.age > 30;
+
