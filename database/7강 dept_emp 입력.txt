@@ -1,16 +1,31 @@
+create table emp(
+emp_no int,
+e_nm varchar(20),
+age int,
+dept_no varchar(50),
+position varchar(20),
+salary double
+);
+
+create table dept(
+dept_no int,
+branch_nm varchar(40),
+dept_nm varchar(40)
+);
+
 
 insert into dept(dept_no,branch_nm,dept_nm) values(1,'대전지사 ','인사과 ');
 insert into dept(dept_no,branch_nm,dept_nm) values(2,'대전지사 ','프론티어사업단');
 insert into dept(dept_no,branch_nm,dept_nm) values(3,'대전지사 ','전산팀 ');
 
 
-insert into emp(emp_no, e_nm  , age , dept_nm, position, salary) values(1,'김과장',20,1,'과장', 5250000);
-insert into emp(emp_no, e_nm  , age , dept_nm, position, salary) values(2,'사살미',21,2,'사원', 3600000);
-insert into emp(emp_no, e_nm  , age , dept_nm, position, salary) values(3,'나신순',22,2,'대리', 4200000);
-insert into emp(emp_no, e_nm  , age , dept_nm, position, salary) values(4,'가시연',23,1,'부장', 6750000);
-insert into emp(emp_no, e_nm  , age , dept_nm, position, salary) values(5,'곽심의',24,1,'차장', 6000000);
-insert into emp(emp_no, e_nm  , age , dept_nm, position, salary) values(6,'박이사',25,2,'과장', 5250000);
-insert into emp(emp_no, e_nm  , age , dept_nm, position, salary) values(7,'이미리',26,3,'사원', 3600000);
-insert into emp(emp_no, e_nm  , age , dept_nm, position, salary) values(8,'마미솥',27,1,'대리', 4200000);
-insert into emp(emp_no, e_nm  , age , dept_nm, position, salary) values(9,'데리만수',28,1,'부장', 6750000);
-insert into emp(emp_no, e_nm  , age , dept_nm, position, salary) values(10,'최주박',29,1,'차장', 6000000);
+insert into emp(emp_no, e_nm  , age , dept_no, position, salary) values(1,'김과장',20,1,'과장', 5250000);
+insert into emp(emp_no, e_nm  , age , dept_no, position, salary) values(2,'사살미',21,2,'사원', 3600000);
+insert into emp(emp_no, e_nm  , age , dept_no, position, salary) values(3,'나신순',22,2,'대리', 4200000);
+insert into emp(emp_no, e_nm  , age , dept_no, position, salary) values(4,'가시연',23,1,'부장', 6750000);
+insert into emp(emp_no, e_nm  , age , dept_no, position, salary) values(5,'곽심의',24,1,'차장', 6000000);
+insert into emp(emp_no, e_nm  , age , dept_no, position, salary) values(6,'박이사',25,2,'과장', 5250000);
+insert into emp(emp_no, e_nm  , age , dept_no, position, salary) values(7,'이미리',26,3,'사원', 3600000);
+insert into emp(emp_no, e_nm  , age , dept_no, position, salary) values(8,'마미솥',27,1,'대리', 4200000);
+insert into emp(emp_no, e_nm  , age , dept_no, position, salary) values(9,'데리만수',28,1,'부장', 6750000);
+insert into emp(emp_no, e_nm  , age , dept_no, position, salary) values(10,'최주박',29,1,'차장', 6000000);
