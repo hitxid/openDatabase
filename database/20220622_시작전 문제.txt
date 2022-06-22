@@ -1,0 +1,47 @@
+시작전 문제 2020622
+1.
+SELECT c_name, age
+  FROM customer
+UNION ALL
+SELECT e_nm, age
+  FROM emp;
+  
+2.
+CREATE VIEW v_cemp
+AS 
+SELECT c_name, age
+  FROM customer
+UNION ALL
+SELECT e_nm, age
+  FROM emp;
+  
+  
+SELECT * FROM v_cemp;
+
+3.
+CREATE TABLE member AS 
+SELECT 1 AS  mbr_no, c_name AS nm, age FROM v_cemp;
+
+4.
+ALTER TABLE member ADD COLUMN youth VARCHAR(20);
+UPDATE member SET youth = '청년' WHERE age BETWEEN 19 AND 29;
+UPDATE member SET youth = '중년' WHERE age BETWEEN 30 AND 49;
+UPDATE member SET youth = '장년' WHERE age BETWEEN 50 AND 64;
+UPDATE member SET youth = '노인' WHERE age >= 65;
+
+5.
+CREATE TABLE age_group(
+idx INT,
+type varchar(20),
+start_age INT,
+CONSTRAINT PRIMARY KEY (idx));
+
+INSERT INTO age_group(idx, TYPE, start_age)
+VALUES(1, '청년', 19),(2, '중년', 30),(3, '장년', 50)
+,(4, '노인', 65);
+
+UPDATE member AS a 
+SET a.youth = (SELECT b.idx 
+               FROM age_group AS b 
+	  WHERE a.youth = b.type)
+ WHERE a.youth IS NOT NULL;
