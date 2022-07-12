@@ -1,0 +1,15 @@
+쿼리실습1.
+SELECT *
+  FROM customer
+ WHERE LEVEL = 'GREEN'
+   AND c_mobile LIKE '%3%';
+
+쿼리실습2.
+SELECT *
+  FROM customer
+ WHERE LEVEL IN('GREEN', 'BLACK', 'TOP');
+
+쿼리실습3.
+SELECT sale_store, SUM(quantity) AS "판매 수량"
+  FROM sales
+ GROUP BY sale_store

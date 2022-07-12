@@ -1,0 +1,14 @@
+쿼리실습1
+SELECT c_name
+  FROM customer
+ ORDER BY c_name desc
+
+쿼리실습2.
+SELECT *
+  FROM customer AS a
+  INNER JOIN voucher AS b
+  ON a.c_id = b.c_id
+
+쿼리실습3.
+SELECT CONCAT(c_name, ':', c_mobile, ',', LEVEL, ',(', age, ')')
+  FROM customer AS a
